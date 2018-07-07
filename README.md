@@ -65,7 +65,7 @@ Do a POST request sending the following fields:
 * name -` Your name
 
 ```sh
-http POST localhost:3000/api/users/register email=`email_entered` password=`password_entered` name=`name_entered`
+http POST localhost:3000/api/users/register email=EMAIL_ENTERED password=PASSWORD_ENTERED name=NAME_ENTERED
 ```
 
 **After doing this, you will be granted a token that need to be send on the body on every request to access the data.**
@@ -83,11 +83,11 @@ If you are already singed in, to get a valid token:
 
 Do a POST request sending the following fields:
 
-* email -` Your email
-* password -` Your password
+* email - Your email
+* password - Your password
 
 ```sh
-http POST localhost:3000/api/users/login email=`email_entered` password=`password_entered`
+http POST localhost:3000/api/users/login email=EMAIL_ENTERED password=PASSWORD_ENTERED
 ```
 
 
@@ -105,32 +105,32 @@ To paginate results you can use:
 
 ```sh
 # Skip results
-?skip=`number`
+?skip=NUMBER
 # Example
 http http://localhost:3000/api/ads?skip=3&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Limit results
-?limit=`number`
+?limit=NUMBER
 # Example
 http http://localhost:3000/api/ads?limit=2&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Sort results
-?sort=`field`
+?sort=FIELD
 # Example
 http http://localhost:3000/api/ads?sort=name&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Get only a field
-?fields=`field`
+?fields=FIELD
 # Get several fields
-?fields=`field_1` `field_2`
+?fields=FIELD_1 FIELD_2
 # Ignore object id
-?fields=`field_1` `-_id`
+?fields=FIELD_1 -_id
 # Example
 http http://localhost:3000/api/ads?fields=name&token=ACCESS_TOKEN
 http http://localhost:3000/api/ads?fields=name price&token=ACCESS_TOKEN
@@ -139,7 +139,7 @@ http http://localhost:3000/api/ads?fields=name -_id&token=ACCESS_TOKEN
 
 ```sh
 # Search by text. The results given are those that starts by the name or matches the same name given in a case insensitive way.
-?`field`=`text`
+?FIELD=`text`
 # Example
 http http://localhost:3000/api/ads?name=Audie&token=ACCESS_TOKEN
 ```
@@ -155,14 +155,14 @@ http http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10&
 
 ```sh
 # Find products with a minimum price
-?price=`number`-
+?price=NUMBER-
 # Example
 http http://localhost:3000/api/ads?price=100-&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Find products with a maximum price
-?price=-`number`
+?price=-NUMBER
 # Example
 http http://localhost:3000/api/ads?price=-100&token=ACCESS_TOKEN
 ```
