@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "cross-env DEBUG=nodeapi:* nodemon ./bin/www"
+    "dev": "cross-env DEBUG=nodeapi:* nodemon ./bin/www",
+    "startUpDB": "node ./utils/startUpMongo"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

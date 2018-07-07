@@ -1,8 +1,5 @@
 'use strict';
 
-
-const mongoose = require('mongoose');
-
 const AdsDataBase = [
     {
         "name": "Honda CB125F",
@@ -27,28 +24,29 @@ const AdsDataBase = [
     }
 ];
 
-
-
+//Import the Model
 const Ad = require('../models/Ad');
 
-/* Connect to the DB */
-mongoose.connect('mongodb://localhost:27017/nodepop', {useNewUrlParser: true},async function () {
-    /* Drop the DB */
-   const deleteDB = await mongoose.connection.db.dropDatabase();
-   console.log('Database erased');
-   createAds(AdsDataBase);
-   
-}
-    
-);
+//Use More Random Data
+const randomData = require('../data/randomData');
 
+//Import the connection
+const connectionMongoose = require('../lib/connectMongoose');
+
+async function startUp(){
+
+    const deleteDB = await connectionMongoose.dropDatabase();
+    console.log('Database erased');
+    const createDB = await createAds(randomData);
+    console.log('Success, new data inserted');
+}
 
 async function createAds(AdsDataBase) {
     for(const adNew of AdsDataBase){
         const newAd = new Ad(adNew);
         const newAdSaved = await newAd.save();
-        console.log(newAd, 'inserted');
     }
-    mongoose.connection.close();
+    connectionMongoose.close()
 }
 
+startUp();
