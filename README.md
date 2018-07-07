@@ -60,9 +60,9 @@ The first thing you need to do before using the API, is to sign in.
 
 Do a POST request sending the following fields:
 
-* email -` Enter a valid email
-* password -` Choose a password
-* name -` Your name
+* email - Enter a valid email
+* password - Choose a password
+* name - Your name
 
 ```sh
 http POST localhost:3000/api/users/register email=EMAIL_ENTERED password=PASSWORD_ENTERED name=NAME_ENTERED
