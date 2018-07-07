@@ -30,26 +30,33 @@ router.get('/', async (req, res, next) => {
         if (name) { // solo añado el filtro cuando tengo que filtrar
             filter.name = name;
         }
-         if (isSelling) { // solo añado el filtro cuando tengo que filtrar
-             filter.isSelling = isSelling;
-         }
-         if (price) { // solo añado el filtro cuando tengo que filtrar
+        if (isSelling) { // solo añado el filtro cuando tengo que filtrar
+            filter.isSelling = isSelling;
+        }
+        if (price) { // solo añado el filtro cuando tengo que filtrar
             const priceFilter = checkPriceFilter(price);
-             filter.price = priceFilter;
-         }
-         if (image) { // solo añado el filtro cuando tengo que filtrar
-             filter.image = image;
-         }
-         if (tag) { // solo añado el filtro cuando tengo que filtrar
-             filter.tag = tag;
-         }
-       
+            filter.price = priceFilter;
+        }
+        if (image) { // solo añado el filtro cuando tengo que filtrar
+            filter.image = image;
+        }
+        if (tag) { // solo añado el filtro cuando tengo que filtrar
+            filter.tag = tag;
+        }
+
 
         const ads = await Ads.list(filter, skip, limit, fields, sort); // await espera a se resuelva la promesa y me da el resultado
-        res.json({
-            success: true,
-            result: ads
-        });
+        if (ads.length === 0) { // No products found
+            res.json({
+                success: true,
+                result: 'No products were found matching your selection'
+            });
+        } else { // Products found
+            res.json({
+                success: true,
+                result: ads
+            });
+        }
     } catch (err) {
         next(err);
     }
