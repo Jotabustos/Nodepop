@@ -6,6 +6,7 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const localConfig = require('../../localConfig');
 const validator = require("validator");
+const hasher = require("../../lib/hasher");
 
 router.post('/login', async (req, res, next) => {
     try {
@@ -21,11 +22,10 @@ router.post('/login', async (req, res, next) => {
             res.json({ success: true, message: 'invalid credentials' });
             return;
         }
-
         // comprobamos su password
-        if (password !== user.password) {
-            res.json({ success: true, message: 'invalid credentials' });
-            return;
+        if (!hasher.verifyHash(password,user.password)) {
+          res.json({ success: true, message: "invalid credentials" });
+          return;
         }
 
         // creamos un JWT
@@ -56,25 +56,40 @@ router.post("/register", async (req, res, next) => {
     const name = req.body.name;
     const password = req.body.password;
 
-    
+      if ((!email) || (!name) || (!password)) {
+        res.json({
+          success: true,
+          message: "Please, enter a valid email, name and password"
+        });
+        return;
+      } 
+
+    if(!validator.isEmail(email)){
+        res.json({ success: true, message: "Please, enter a valid email" });
+        return;
+    }
 
     // Check for existing user
     const user = await User.findOne({ email: email }).exec();
+
     // User already register
     if (user) {
         res.json({ success: true, message: "This email address is already in use" });
       return;
     }
 
-    // comprobamos su password
-    if (password !== user.password) {
-      res.json({ success: true, message: "invalid credentials" });
-      return;
-    }
+    // Hash the password
 
+    const passwordHashed = hasher.hashPassword(password);
+
+    // email name and password valids. Registration begins
+
+    const userNew = new User({ email: email, password: passwordHashed,name:name});
+    const newUserSaved = await userNew.save();
+    
     // creamos un JWT
     jwt.sign(
-      { user_id: user._id },
+    { user_id: newUserSaved._id },
       localConfig.jwt.secret,
       {
         expiresIn: localConfig.jwt.expiresIn
@@ -85,7 +100,7 @@ router.post("/register", async (req, res, next) => {
           return;
         }
         // respondemos al cliente dándole el JWT
-        res.json({ success: true, token: token });
+          res.json({ success: true, message: "User created succesfully" ,token: token });
       }
     );
   } catch (err) {

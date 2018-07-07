@@ -23,6 +23,15 @@ To start the application in development mode use:
 npm run dev
 ```
 
+## Cluster Mode
+
+### Start cluster mode
+
+```shell
+npm run cluster
+```
+
+
 ## Start MongoDB service
 
 ```shell
@@ -50,6 +59,35 @@ In order to delete the data inserted in the database and insert new data:
 ```shell
 npm run startUpDB
 ```
+
+# Sign in
+
+The first thing you need to do before using the API, is to Sign in.
+To sign in, simply do a POST request to the following url with the next fields:
+
+localhost:3000/api/users/register
+
+* email -> Enter a valid email
+* password -> Choose a password
+* name -> Your name
+
+** After doing this, you will be granted a token that need to be send on the body on every request to access the data. **
+
+http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3?token=<YOURTOKEN>
+
+or add the token to you headers:
+
+x-access-token : <YOURTOKEN>
+
+
+# Log in
+
+If you are already singed in, to get the token to a POST request to the following url with the next fields:
+
+localhost:3000/api/users/login
+
+* email -> Your email
+* password -> Your password
 
 
 # Use
