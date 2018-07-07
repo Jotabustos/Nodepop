@@ -1,151 +1,180 @@
-## Initial setup
+# Nodepop API
+`Nodepop` is a REST API server implementation built on top `Node.js` and `Express.js` with `Mongoose.js` for `MongoDB` integration.
 
-Create the express app with:
+## Running project
 
-```shell
-express <NameOfTheApp>
-```
+## Manual
 
-Follow the instructions given by the script
+You need to have [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.com) installed.
 
+### MongoDB service start up
 
-## Development
-
-### Install development command
-
-```shell
-npm i cross-env --save--dev
-```
-
-To start the application in development mode use:
-
-```shell
-npm run dev
-```
-
-## Cluster Mode
-
-### Start cluster mode
-
-```shell
-npm run cluster
-```
-
-
-## Start MongoDB service
-
-```shell
+```sh
+# Go to the installation folder and run
 ./bin/mongod --dbpath ./data/db --directoryperdb
 ```
 
-### MongoDB Client
+### Install the required packages
 
-This application uses MongoDB. To start MongoDB client you can use:
-
-```shell
-./bin/mongo
+```sh
+npm install
 ```
 
-The database that we are going to use for the products is:
+### Run server
 
-```shell
-use ads
+```sh
+npm start
+# alias for
+node bin/www
 ```
 
-### Script to delete the database and insert the data
-
-In order to delete the data inserted in the database and insert new data:
+### Run server in development mode
 
 ```shell
+# Install development command
+npm i cross-env --save--dev
+```
+
+```shell
+# To start the application in development mode use:
+npm run dev
+```
+
+### Run server in cluster mode
+
+```shell
+# Start cluster mode
+npm run cluster
+```
+
+### Create demo data
+
+```shell
+# Restart the database with the original demo data:
 npm run startUpDB
 ```
 
-# Sign in
+## Sign in
 
-The first thing you need to do before using the API, is to Sign in.
-To sign in, simply do a POST request to the following url with the next fields:
+The first thing you need to do before using the API, is to sign in.
 
-localhost:3000/api/users/register
+Do a POST request sending the following fields:
 
 * email -> Enter a valid email
 * password -> Choose a password
 * name -> Your name
 
-** After doing this, you will be granted a token that need to be send on the body on every request to access the data. **
+```sh
+http POST localhost:3000/api/users/register email=<email_entered> password=<password_entered> name=<name_entered>
+```
+
+**After doing this, you will be granted a token that need to be send on the body on every request to access the data.**
 
 http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3?token=<YOURTOKEN>
 
-or add the token to you headers:
+**or add the token to you headers:**
 
 x-access-token : <YOURTOKEN>
 
 
-# Log in
+## Log in
 
-If you are already singed in, to get the token to a POST request to the following url with the next fields:
+If you are already singed in, to get a valid token: 
 
-localhost:3000/api/users/login
+Do a POST request sending the following fields:
 
 * email -> Your email
 * password -> Your password
 
+```sh
+http POST localhost:3000/api/users/login email=<email_entered> password=<password_entered> 
+```
 
-# Use
+
+## Make Requests
+
+Get the data:
+
+```sh
+http http://localhost:3000/api/ads?token=<ACCESS_TOKEN>
+```
  
-http://localhost:3000/api/ads
-
-## How to paginate the results
+## Pagination
 
 To paginate results you can use:
 
-?skip=3 -> To skip the first 3 results
+```sh
+# Skip results
+?skip=<number>
+# Example
+http http://localhost:3000/api/ads?skip=3&token=<ACCESS_TOKEN>
+```
 
-?limit=2 -> To limit the number of results to 2
+```sh
+# Limit results
+?limit=<number>
+# Example
+http http://localhost:3000/api/ads?limit=2&token=<ACCESS_TOKEN>
+```
 
-?sort=name -> To sort the results by name
+```sh
+# Sort results
+?sort=<field>
+# Example
+http http://localhost:3000/api/ads?sort=name&token=<ACCESS_TOKEN>
+```
 
-?fields=name -> To retrieve only the parameter name from the query
+```sh
+# Get only a field
+?fields=<field>
+# Get several fields
+?fields=<field_1> <field_2>
+# Ignore object id
+?fields=<field_1> -_id 
+# Example
+http http://localhost:3000/api/ads?fields=name&token=<ACCESS_TOKEN>
+http http://localhost:3000/api/ads?fields=name price&token=<ACCESS_TOKEN>
+http http://localhost:3000/api/ads?fields=name -_id&token=<ACCESS_TOKEN>
+```
 
-?fields=name price -> To retrieve only the parameters name and price from the query
+```sh
+# Search by text. The results given are those that starts by the name or matches the same name given in a case insensitive way.
+?<field>=<text>
+# Example
+http http://localhost:3000/api/ads?name=Audie&token=<ACCESS_TOKEN>
+```
 
-You can also skip parameters from the query by adding a "-" like:
-
-&fields=name price -_id -> By doing this, the _id parameter will not be retrieved
-
-You can also ask for a certain parameter like name or price:
-
-http://localhost:3000/api/ads?name=Audi
-
-* Mixing
-
-You can also mix the query to get a even more precise result by doing for example:
-
-http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10
+```sh
+# Mixing
+You can combine the previous commands
+# Example
+http http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10&token=<ACCESS_TOKEN>
+```
 
 ## Filter by price
 
-In order to find products with a minimum price, add "-" at the end of the number:
+```sh
+# Find products with a minimum price
+?price=<number>-
+# Example
+http http://localhost:3000/api/ads?price=100-&token=<ACCESS_TOKEN>
+```
 
-?price=100-
+```sh
+# Find products with a maximum price
+?price=-<number>
+# Example
+http http://localhost:3000/api/ads?price=-100&token=<ACCESS_TOKEN>
+```
 
-In order to find products with a maximum price, add "-" at the beginning of the number:
+```sh
+# Find products in price range. <number_1> should be the lowest
+?price=<number_1>-number_2>
+# Example
+http http://localhost:3000/api/ads?price=100-300&token=<ACCESS_TOKEN>
+```
 
-?price=-150
 
-In order to find products in a price range, add "-" between the two prices. The first price should be the lowest of the two:
+## Author
 
-?price=150-400
-
-## Filter by name
-
-In order to get products by name:
-
-?name=Audi
-
-The results given are those that starts by the name or matches the same name given in a case insensitive way.
-
-## Filter by tag
-
-In order to get products that contains a given tag:
-
-?tag=motor
+Created and maintained by José Julián Bustos Díaz.
