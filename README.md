@@ -83,3 +83,31 @@ http://localhost:3000/api/ads?name=Audi
 You can also mix the query to get a even more precise result by doing for example:
 
 http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10
+
+## Filter by price
+
+In order to find products with a minimum price, add "-" at the end of the number:
+
+?price=100-
+
+In order to find products with a maximum price, add "-" at the beginning of the number:
+
+?price=-150
+
+In order to find products in a price range, add "-" between the two prices. The first price should be the lowest of the two:
+
+?price=150-400
+
+## Filter by name
+
+In order to get products by name:
+
+?name=Audi
+
+The results given are those that starts by the name or matches the same name given in a case insensitive way.
+
+## Filter by tag
+
+In order to get products that contains a given tag:
+
+?tag=motor

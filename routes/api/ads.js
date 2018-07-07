@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Ads = require('../../models/Ad');
 const checkPriceFilter = require('../../lib/checkPriceFilter');
-
+const checkNameFilter = require("../../lib/checkNameFilter");
 // router.use(basicAuth('admin', '1234')); // para que todo el router pida autenticación
 
 /**
@@ -28,7 +28,8 @@ router.get('/', async (req, res, next) => {
         const filter = {};
 
         if (name) { // solo añado el filtro cuando tengo que filtrar
-            filter.name = name;
+            const nameFilter = checkNameFilter(name);
+            filter.name = nameFilter;
         }
         if (isSelling) { // solo añado el filtro cuando tengo que filtrar
             filter.isSelling = isSelling;
@@ -41,7 +42,7 @@ router.get('/', async (req, res, next) => {
             filter.image = image;
         }
         if (tag) { // solo añado el filtro cuando tengo que filtrar
-            filter.tag = tag;
+            filter.tag = [tag];
         }
 
 
