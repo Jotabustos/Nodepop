@@ -4,13 +4,14 @@ const router = express.Router();
 const Ads = require('../../models/Ad');
 const checkPriceFilter = require('../../lib/checkPriceFilter');
 const checkNameFilter = require("../../lib/checkNameFilter");
+const jwtAuth = require("../../lib/jwtAuth");
 // router.use(basicAuth('admin', '1234')); // para que todo el router pida autenticación
 
 /**
  * GET /
  * Retrieves a list of ads
  */
-router.get('/', async (req, res, next) => {
+router.get('/', jwtAuth(), async (req, res, next) => {
     try {
         // // cual es el usuario?
         // console.log('el usuario autenticado es:', req.user_id);

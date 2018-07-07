@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API Routes
 
 app.use('/api/ads', require('./routes/api/ads'));
-
+app.use("/api/users", require("./routes/api/users"));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -43,6 +43,12 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+
+  if (isAPI(req)) {
+    res.json({ success: false, error: err.message });
+    return;
+  }
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -50,5 +56,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function isAPI(req) {
+  return req.originalUrl.indexOf("/api") === 0;
+}
 
 module.exports = app;
