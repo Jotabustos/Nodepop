@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-// primero definimos un esquema
+// Define the Schema
 
 const adSchema = mongoose.Schema({
     name: String,
@@ -19,14 +19,13 @@ adSchema.statics.list = function (filter, skip, limit, fields, sort) {
     query.skip(skip);
     query.limit(limit);
     query.select(fields);
-    query.sort(sort); // la ordenación se ejecuta antes que el paginado
+    query.sort(sort); // Sort executes first than the rest of the pagination
 
-    // ejecutamos la query y devolvemos una promesa
+    // execute the query
     return query.exec();
 }
 
-
-// creamos el modelo
+// create the Model
 
 const Ad = mongoose.model('Ad', adSchema);
 

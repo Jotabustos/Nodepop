@@ -2,14 +2,14 @@
 
 const mongoose = require('mongoose');
 
-// primero definimos un esquema
+// Define the Schema
 const userSchema = mongoose.Schema({
   email: { type: String, unique: true },
   name: String,
   password: String
 });
 
-// creamos el modelo
+// create the Model
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
