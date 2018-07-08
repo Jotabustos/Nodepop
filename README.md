@@ -48,6 +48,7 @@ npm run cluster
 ```
 
 ## Create demo data
+
 **In order to have some data, run the following command to initiate the database.**
 
 ```shell
