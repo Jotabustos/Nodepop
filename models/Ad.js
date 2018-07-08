@@ -14,14 +14,14 @@ const adSchema = mongoose.Schema({
 
 
 adSchema.statics.list = function (filter, skip, limit, fields, sort) {
-    // crear la query sin ejecutarla
+    // Create the query
     const query = Ad.find(filter);
     query.skip(skip);
     query.limit(limit);
     query.select(fields);
     query.sort(sort); // Sort executes first than the rest of the pagination
 
-    // execute the query
+    // Execute the query
     return query.exec();
 }
 

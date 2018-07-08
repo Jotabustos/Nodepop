@@ -10,25 +10,25 @@ const hasher = require("../../lib/hasher");
 
 router.post('/login', async (req, res, next) => {
     try {
-        // recogemos credenciales
+        // get the credentials
         const email = req.body.email;
         const password = req.body.password;
 
-        // buscamos en base de datos
+        // search for the user
         const user = await User.findOne({ email: email }).exec();
 
-        // si encontramos al usuario
+        // if the user does not exist
         if (!user) {
             res.json({ success: true, message: 'invalid credentials' });
             return;
         }
-        // comprobamos su password
+        // check the password
         if (!hasher.verifyHash(password,user.password)) {
           res.json({ success: true, message: "invalid credentials" });
           return;
         }
 
-        // creamos un JWT
+        // create JWT token
         jwt.sign({ user_id: user._id }, localConfig.jwt.secret, {
             expiresIn: localConfig.jwt.expiresIn
         }, (err, token) => {
@@ -36,7 +36,7 @@ router.post('/login', async (req, res, next) => {
                 next(err);
                 return;
             }
-            // respondemos al cliente dándole el JWT
+            // send the token
             res.json({ success: true, token: token });
         })
 
@@ -99,7 +99,7 @@ router.post("/register", async (req, res, next) => {
           next(err);
           return;
         }
-        // respondemos al cliente dándole el JWT
+        // send the token
           res.json({ success: true, message: "User created succesfully" ,token: token });
       }
     );

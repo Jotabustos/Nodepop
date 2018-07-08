@@ -1,3 +1,7 @@
+
+// Random data generated with mockaroo.
+// References: https://mockaroo.com/
+
 const dataRandom = [{
         "name": "Bentley",
         "isSelling": true,

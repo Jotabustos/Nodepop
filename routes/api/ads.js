@@ -5,7 +5,6 @@ const Ads = require('../../models/Ad');
 const checkPriceFilter = require('../../lib/checkPriceFilter');
 const checkNameFilter = require("../../lib/checkNameFilter");
 const jwtAuth = require("../../lib/jwtAuth");
-// router.use(basicAuth('admin', '1234')); // para que todo el router pida autenticación
 
 /**
  * GET /
@@ -13,8 +12,7 @@ const jwtAuth = require("../../lib/jwtAuth");
  */
 router.get('/', jwtAuth(), async (req, res, next) => {
     try {
-        // // cual es el usuario?
-        // console.log('el usuario autenticado es:', req.user_id);
+
         const name = req.query.name
         const isSelling = req.query.isSelling
         const price = req.query.price
@@ -25,29 +23,29 @@ router.get('/', jwtAuth(), async (req, res, next) => {
         const fields = req.query.fields;
         const sort = req.query.sort;
 
-        // crear un filtro vacio
+        // Create the filter
         const filter = {};
 
-        if (name) { // solo añado el filtro cuando tengo que filtrar
+        if (name) { 
             const nameFilter = checkNameFilter(name);
             filter.name = nameFilter;
         }
-        if (isSelling) { // solo añado el filtro cuando tengo que filtrar
+        if (isSelling) { 
             filter.isSelling = isSelling;
         }
-        if (price) { // solo añado el filtro cuando tengo que filtrar
+        if (price) { 
             const priceFilter = checkPriceFilter(price);
             filter.price = priceFilter;
         }
-        if (image) { // solo añado el filtro cuando tengo que filtrar
+        if (image) { 
             filter.image = image;
         }
-        if (tag) { // solo añado el filtro cuando tengo que filtrar
+        if (tag) { 
             filter.tag = [tag];
         }
 
 
-        const ads = await Ads.list(filter, skip, limit, fields, sort); // await espera a se resuelva la promesa y me da el resultado
+        const ads = await Ads.list(filter, skip, limit, fields, sort);
         if (ads.length === 0) { // No products found
             res.json({
                 success: true,
