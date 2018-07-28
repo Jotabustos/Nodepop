@@ -85,7 +85,7 @@ Answer of the API:
 
 ```sh
 # Example of request with the token
-GET http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3?token=ACCESS_TOKEN
+GET /api/ads?sort=name&fields=name%20-_id&skip=3?token=ACCESS_TOKEN
 ```
 
 **or add the token to you headers:**
@@ -120,7 +120,7 @@ After doing this, you will be given an access token as well.
 Get the data:
 
 ```sh
-GET http://localhost:3000/api/ads?token=ACCESS_TOKEN
+GET /api/ads?token=ACCESS_TOKEN
 ```
 
 ## Pagination
@@ -131,21 +131,21 @@ To paginate results you can use:
 # Skip results
 ?skip=NUMBER
 # Example
-GET http://localhost:3000/api/ads?skip=3&token=ACCESS_TOKEN
+GET /api/ads?skip=3&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Limit results
 ?limit=NUMBER
 # Example
-GET http://localhost:3000/api/ads?limit=2&token=ACCESS_TOKEN
+GET /api/ads?limit=2&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Sort results
 ?sort=FIELD
 # Example
-GET http://localhost:3000/api/ads?sort=name&token=ACCESS_TOKEN
+GET /api/ads?sort=name&token=ACCESS_TOKEN
 ```
 
 ```sh
@@ -156,23 +156,23 @@ GET http://localhost:3000/api/ads?sort=name&token=ACCESS_TOKEN
 # Ignore object id
 ?fields=FIELD_1 -_id
 # Example
-GET http://localhost:3000/api/ads?fields=name&token=ACCESS_TOKEN
-GET http://localhost:3000/api/ads?fields=name price&token=ACCESS_TOKEN
-GET http://localhost:3000/api/ads?fields=name -_id&token=ACCESS_TOKEN
+GET /api/ads?fields=name&token=ACCESS_TOKEN
+GET /api/ads?fields=name price&token=ACCESS_TOKEN
+GET /api/ads?fields=name -_id&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Search by text. The results given are those that starts by the name or matches the same name given in a case insensitive way.
 ?FIELD_1=TEXT
 # Example
-GET http://localhost:3000/api/ads?name=audi&token=ACCESS_TOKEN
+GET /api/ads?name=audi&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Mixing
 You can combine the previous commands
 # Example
-GET http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10&token=ACCESS_TOKEN
+GET /api/ads?sort=name&fields=name%20-_id&skip=3&limit=10&token=ACCESS_TOKEN
 ```
 
 ## Filter by price
@@ -181,23 +181,26 @@ GET http://localhost:3000/api/ads?sort=name&fields=name%20-_id&skip=3&limit=10&t
 # Find products with a minimum price
 ?price=NUMBER-
 # Example
-GET http://localhost:3000/api/ads?price=100-&token=ACCESS_TOKEN
+GET /api/ads?price=100-&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Find products with a maximum price
 ?price=-NUMBER
 # Example
-GET http://localhost:3000/api/ads?price=-100&token=ACCESS_TOKEN
+GET /api/ads?price=-100&token=ACCESS_TOKEN
 ```
 
 ```sh
 # Find products in price range. NUMBER_1 should be the lowest
 ?price=NUMBER_1-NUMBER_2
 # Example
-GET http://localhost:3000/api/ads?price=100-300&token=ACCESS_TOKEN
+GET /api/ads?price=100-300&token=ACCESS_TOKEN
 ```
 
+## Get static content
+
+GET /images/logo.jpg
 
 ## Author
 
