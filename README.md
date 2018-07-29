@@ -208,8 +208,8 @@ URL de la API: https://nodepop.jotabustos.com
 
 ### Ejercicio 2
 
-IP del servidor: 18.209.170.168
-También se puede acceder por HTTPS al mismo contenido en https://jotabustos.com
+* IP del servidor: 18.209.170.168
+* También se puede acceder por HTTPS al mismo contenido en https://jotabustos.com
 
 ## Author
 
