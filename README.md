@@ -67,7 +67,7 @@ Do a POST request sending the following fields:
 * name - Your name
 
 ```sh
-http POST localhost:3000/api/users/register email=EMAIL_ENTERED password=PASSWORD_ENTERED name=NAME_ENTERED
+http POST /api/users/register email=EMAIL_ENTERED password=PASSWORD_ENTERED name=NAME_ENTERED
 ```
 
 **After doing this, the API will answer sending a token that need to be send on the body on every request to access the data.**
@@ -201,6 +201,20 @@ GET /api/ads?price=100-300&token=ACCESS_TOKEN
 ## Get static content
 
 GET /images/logo.jpg
+
+
+# Práctica del curso de DevOps
+
+### Ejercicio 1
+
+URL de la API: https://nodepop.jotabustos.com
+
+
+* Al no servir las imágenes como archivos estáticos, para evaluar que se ha añadido la cabecera X-Owner se debe acceder a https://nodepop.jotabustos.com/images/logo.jpg *
+
+### Ejercicio 2
+
+IP del servidor: 18.209.170.168
 
 ## Author
 
