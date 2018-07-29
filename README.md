@@ -198,13 +198,13 @@ GET /api/ads?price=-100&token=ACCESS_TOKEN
 GET /api/ads?price=100-300&token=ACCESS_TOKEN
 ```
 
-# Práctica del curso de DevOps
+# Práctica del curso de DevOps
 
 ### Ejercicio 1
 
 URL de la API: https://nodepop.jotabustos.com
 
-* Al no servir las imágenes como archivos estáticos, para evaluar que se ha añadido la cabecera X-Owner se debe acceder a https://nodepop.jotabustos.com/images/logo.jpg *
+* Al no servir las imágenes como archivos estáticos, para evaluar que se ha añadido la cabecera X-Owner se debe acceder a https://nodepop.jotabustos.com/images/logo.jpg
 
 ### Ejercicio 2
 
