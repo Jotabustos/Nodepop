@@ -198,23 +198,18 @@ GET /api/ads?price=-100&token=ACCESS_TOKEN
 GET /api/ads?price=100-300&token=ACCESS_TOKEN
 ```
 
-## Get static content
-
-GET /images/logo.jpg
-
-
 # Práctica del curso de DevOps
 
 ### Ejercicio 1
 
 URL de la API: https://nodepop.jotabustos.com
 
-
 * Al no servir las imágenes como archivos estáticos, para evaluar que se ha añadido la cabecera X-Owner se debe acceder a https://nodepop.jotabustos.com/images/logo.jpg *
 
 ### Ejercicio 2
 
 IP del servidor: 18.209.170.168
+También se puede acceder por HTTPS al mismo contenido en https://jotabustos.com
 
 ## Author
 
